@@ -17,16 +17,16 @@ export class InsertionSorting{
         let arr = rawArray.values;
         console.log('Unsorted array:', arr);
 
-        let i:number, j:number;
+        // let i:number, j:number;
 
-        for (i = 0; i < arr.length; i++){
+        // for (i = 0; i < arr.length; i++){
 
-            for (j = i+1; j > 0; j--) {
-                if (arr[j] < arr[i]) {
-                    
-                }
-            }
-        }
+        //     for (j = i+1; j > 0; j--) {
+        //         if (arr[j] < arr[i]) {
+
+        //         }
+        //     }
+        // }
 
         return arr;
     }
