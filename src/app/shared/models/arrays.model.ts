@@ -2,7 +2,7 @@
  * Model for generating arrays.
  */
 
-class RawArray {
+export class RawArray {
     size: 'small' | 'medium' | 'big';
     values: number[];
 
@@ -12,7 +12,6 @@ class RawArray {
     }
 
     
-
     /**
      * Generates an array of the given size.
      * @param arraySize number; the size of the array.
