@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev-test": "ts-node ./src/app/services/insertion.service.ts"
+    "dev": "ts-node ./src/app/services/insertion.service.ts"
   },
   "private": true,
   "dependencies": {

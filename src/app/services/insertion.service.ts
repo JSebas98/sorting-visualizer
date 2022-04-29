@@ -3,6 +3,7 @@
  */
 
 import { RawArray } from '../models/arrays.model';
+import { Step } from '../models/types';
 
 export class InsertionSorting{
     public arraySize: 'small' | 'medium' | 'big';
@@ -13,22 +14,43 @@ export class InsertionSorting{
         this.rawArray = new RawArray(arraySize);
     }
 
-    insertionSortArray(rawArray: RawArray): number[] {
+    insertionSortArray(rawArray: RawArray): Step[] {
         let arr = rawArray.values;
         console.log('Unsorted array:', arr);
+        let i:number, key:number, prev:number;
+        let stepsCounter: number = 0;
+        let steps: Step[] = [];
 
-        // let i:number, j:number;
+        for (i=1; i<arr.length; i++) {
+            key = arr[i];
+            prev = i - 1;
+            // Moving bigger elements one place forward
+            while (prev >= 0 && arr[prev] > key) {
+                arr[prev + 1] = arr[prev];
+                prev--;
+                // Keep track of steps and array status
+                stepsCounter++;
+                steps.push({
+                    "key": stepsCounter,
+                    "status": arr.slice(),
+                    "pointer": i,
+                    "comparedElement": prev
+                });
+            }
+            // Insertion of element
+            arr[prev+1] = key;
 
-        // for (i = 0; i < arr.length; i++){
+            // Keep track of steps and array status after insertion
+            stepsCounter++;
+            steps.push({
+                "key": stepsCounter,
+                "status": arr.slice(),
+                "pointer": i,
+                "comparedElement": prev
+            })
+        }
 
-        //     for (j = i+1; j > 0; j--) {
-        //         if (arr[j] < arr[i]) {
-
-        //         }
-        //     }
-        // }
-
-        return arr;
+        return steps;
     }
 }
 
