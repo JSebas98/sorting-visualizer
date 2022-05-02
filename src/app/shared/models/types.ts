@@ -1,5 +1,6 @@
 export type ArraySize = 'small' | 'medium' | 'big';
-
+// Type template for object containing required
+// info for rendering algorithm steps (Bubble and Insertion)
 export type Step = {
     "key": number,
     "status": number[],
@@ -14,4 +15,13 @@ export type QuickStep = {
     "comparedElement": number,
     "swapIndex": number,
     "swapped": boolean
-}
+};
+
+export type MergeStep = {
+    "key": number,
+    "leftArray": number[],
+    "rightArray": number[],
+    "sortedArray": number[],
+    "pointer": number,
+    "comparedElement": number
+};
