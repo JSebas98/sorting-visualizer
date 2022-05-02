@@ -6,14 +6,10 @@ import { RawArray } from '../models/arrays.model';
 import { MergeStep } from '../models/types';
 
 export class MergeSorting{
-    public arraySize: 'small' | 'medium' | 'big';
-    public rawArray: number[];
     public steps: MergeStep[];
     public stepsCounter: number;
 
-    constructor(arraySize: 'small' | 'medium' | 'big') {
-        this.arraySize = arraySize;
-        this.rawArray = new RawArray(arraySize).generateArray(arraySize);
+    constructor() {
         this.steps = [];
         this.stepsCounter = 0;
     }
@@ -24,7 +20,6 @@ export class MergeSorting{
      * @returns sorted array.
      */
     mergeSortArray(arr: number[]): number[] {
-        console.log('Unsorted array:', arr);
         let sortedArray: number[] = this.divideArrays(arr);
         
         return sortedArray;
