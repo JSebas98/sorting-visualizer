@@ -2,18 +2,13 @@
  * Class to execute quick sorting algorithm.
  */
 
-import { RawArray } from '../models/arrays.model';
 import { QuickStep } from '../models/types';
 
 export class QuickSorting {
-    public arraySize: 'small' | 'medium' | 'big';
-    public rawArray: number[];
     public steps: QuickStep[];
     public stepsCounter: number;
 
-    constructor(arraySize: 'small' | 'medium' | 'big') {
-        this.arraySize = arraySize;
-        this.rawArray = new RawArray(arraySize).generateArray(arraySize);
+    constructor() {
         this.steps = [];
         this.stepsCounter = 0;
     }
@@ -97,8 +92,3 @@ export class QuickSorting {
     }
     
 }
-
-let quick1 = new QuickSorting('small');
-console.log('Unsorted array', quick1.rawArray);
-console.log('Sorted array:', quick1.quickSortArray(quick1.rawArray));
-console.log(quick1.steps);
