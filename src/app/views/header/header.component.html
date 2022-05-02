@@ -3,10 +3,10 @@
     <mat-icon class="toolbar__btn-icon">menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" class="toolbar__menu">
-    <button mat-menu-item class="toolbar__menu-item">BubbleSort</button>
-    <button mat-menu-item class="toolbar__menu-item">InsertionSort</button>
-    <button mat-menu-item class="toolbar__menu-item">MergeSort</button>
-    <button mat-menu-item class="toolbar__menu-item">QuickSort</button>
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(1)">BubbleSort</button>
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(2)">InsertionSort</button>
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(3)">MergeSort</button>
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(4)">QuickSort</button>
   </mat-menu>
   <span class="toolbar__spacer"></span>
   <img src="../../../assets/logo.png" class="toolbar__img">
