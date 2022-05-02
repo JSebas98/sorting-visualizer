@@ -2,7 +2,6 @@
  * Class to execute merge sorting algorithm.
  */
 
-import { SlicePipe } from '@angular/common';
 import { RawArray } from '../models/arrays.model';
 import { MergeStep } from '../models/types';
 
@@ -147,7 +146,3 @@ export class MergeSorting{
         return sortedArray;
     }
 }
-
-let merge1 = new MergeSorting('small');
-console.log('Sorted array:', merge1.mergeSortArray(merge1.rawArray));
-console.log(merge1.steps);

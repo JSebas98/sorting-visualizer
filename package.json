@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "dev": "ts-node ./src/app/shared/services/merge.service.ts"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
