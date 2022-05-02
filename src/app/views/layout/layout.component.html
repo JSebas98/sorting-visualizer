@@ -1,0 +1,16 @@
+<div class="container">
+  <app-header (selectedOption)="onSelected($event)"></app-header>
+  <div class="layout">
+    <p class="layout__title">{{selectedAlgorithm}}</p>
+    <div class="layout__container">
+      <button mat-icon-button class="layout__button" (click)="animation()" matTooltip="Start animation">
+        <mat-icon class="layout__button-icon">play_arrow</mat-icon>
+      </button>
+      <button mat-icon-button class="layout__button" (click)="shuffleArray()" matTooltip="Shuffle array">
+        <mat-icon class="layout__button-icon">shuffle</mat-icon>
+      </button>
+    </div>
+    <mat-slider thumbLabel [displayWith]="formatValue" step="50" tickInterval="1" class="layout__slider"
+      (input)="getSliderValue($event)"></mat-slider>
+  </div>
+</div>
