@@ -3,7 +3,7 @@
  */
 
 import { RawArray } from '../models/arrays.model';
-import { MergeStep, Step } from '../models/types';
+import { MergeStep } from '../models/types';
 
 export class MergeSorting{
     public arraySize: 'small' | 'medium' | 'big';
