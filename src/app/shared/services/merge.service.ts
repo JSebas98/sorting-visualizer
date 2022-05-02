@@ -1,19 +1,20 @@
 /**
- * Class to execute insertion sorting algorithm.
+ * Class to execute merge sorting algorithm.
  */
 
+import { SlicePipe } from '@angular/common';
 import { RawArray } from '../models/arrays.model';
 import { MergeStep } from '../models/types';
 
 export class MergeSorting{
     public arraySize: 'small' | 'medium' | 'big';
-    public rawArray: RawArray;
+    public rawArray: number[];
     public steps: MergeStep[];
     public stepsCounter: number;
 
     constructor(arraySize: 'small' | 'medium' | 'big') {
         this.arraySize = arraySize;
-        this.rawArray = new RawArray(arraySize);
+        this.rawArray = new RawArray(arraySize).generateArray(arraySize);
         this.steps = [];
         this.stepsCounter = 0;
     }
@@ -23,8 +24,7 @@ export class MergeSorting{
      * @param rawArray RawArray object containing shuffled array.
      * @returns sorted array.
      */
-    mergeSortArray(rawArray: RawArray): number[] {
-        let arr: number[] = rawArray.values;
+    mergeSortArray(arr: number[]): number[] {
         console.log('Unsorted array:', arr);
         let sortedArray: number[] = this.divideArrays(arr);
         
@@ -43,6 +43,15 @@ export class MergeSorting{
         }
         let arr1: number[] = arr.slice(0, arr.length/2);
         let arr2: number[] = arr.slice(arr.length/2, arr.length);
+        
+        this.steps.push({
+            "key": this.stepsCounter++,
+            "leftArray": arr1.slice(),
+            "rightArray": arr2.slice(),
+            "sortedArray": arr.slice(),
+            "pointer": -1,
+            "comparedElement": -1
+        });
 
         arr1 = this.divideArrays(arr1);
         arr2 = this.divideArrays(arr2);
@@ -59,7 +68,6 @@ export class MergeSorting{
      */
     mergeArrays(arr1: number[], arr2: number[]): number[] {
         let sortedArray: number[] = [];
-        
         
         while (arr1.length > 0 && arr2.length > 0) {
             if (arr1[0] > arr2[0]) {
