@@ -13,4 +13,5 @@
     <mat-slider thumbLabel [displayWith]="formatValue" step="50" tickInterval="1" class="layout__slider"
       (input)="getSliderValue($event)"></mat-slider>
   </div>
+  <app-chart [steps]="steps" [initialStep]="initialArray"></app-chart>
 </div>

@@ -2,8 +2,9 @@
  * Class to execute quick sorting algorithm.
  */
 
+import { Injectable } from '@angular/core';
 import { QuickStep } from '../models/types';
-
+@Injectable()
 export class QuickSorting {
     public steps: QuickStep[];
     public stepsCounter: number;

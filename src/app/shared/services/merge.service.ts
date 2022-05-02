@@ -2,8 +2,9 @@
  * Class to execute merge sorting algorithm.
  */
 
+import { Injectable } from '@angular/core';
 import { MergeStep } from '../models/types';
-
+@Injectable()
 export class MergeSorting{
     public steps: MergeStep[];
     public stepsCounter: number;

@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from '../chart/chart.component';
+import { BubbleSorting } from '../../shared/services/bubble.service';
+import { InsertionSorting } from '../../shared/services/insertion.service';
+import { MergeSorting } from '../../shared/services/merge.service';
+import { QuickSorting } from '../../shared/services/quick.service';
+import { RawArray } from '../../shared/models/arrays.model';
+import { Step } from '../../shared/models/types';
 
 @Component({
   selector: 'app-layout',
@@ -14,9 +20,21 @@ export class LayoutComponent implements OnInit {
   private sliderValue: ('small'|'medium'|'big');
   selectedAlgorithm: string;
 
-  constructor() {
+  initialArray: number[]; 
+  steps: Step [];
+  currentService: any;
+
+  constructor(
+    private bubbleService: BubbleSorting,
+    private insertionService: InsertionSorting,
+    private mergeService: MergeSorting,
+    private quickService: QuickSorting
+  ) {
     this.sliderValue = 'small';
     this.selectedAlgorithm = 'BubbleSort';
+    this.initialArray = new RawArray(this.sliderValue).generateArray();
+    this.bubbleService.bubbleSortArray(this.initialArray.slice());
+    this.steps = this.bubbleService.steps;
   }
 
   ngOnInit(): void {
@@ -49,20 +67,33 @@ export class LayoutComponent implements OnInit {
 
   getSliderValue(event: any): string {
     this.sliderValue = event.value === 0 ? 'small' : event.value === 50 ? 'medium' : 'big';
-    console.log(this.sliderValue);
+    this.initialArray = new RawArray(this.sliderValue).generateArray();
     return this.sliderValue;
   }
 
   animation() {
-    console.log('play');
+    this.calculateSteps();
+    this.chart.startAnimation();
   }
 
   shuffleArray() {
-    console.log('shuffle')
+    this.initialArray = new RawArray(this.sliderValue).generateArray();
   }
 
   formatValue(value: number) {
     value === 0 ? value=10 : value = value;
     return value;
+  }
+
+  calculateSteps() {
+    if(this.selectedAlgorithm === 'BubbleSort'){
+      this.bubbleService.bubbleSortArray(this.initialArray.slice());
+      this.steps = this.bubbleService.steps;
+    }
+    if(this.selectedAlgorithm === 'InsertionSort') {
+      this.insertionService.insertionSortArray(this.initialArray.slice());
+      this.steps = this.insertionService.steps;
+    } 
+      
   }
 }

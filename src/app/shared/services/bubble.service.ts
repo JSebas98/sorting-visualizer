@@ -3,7 +3,8 @@
  */
 
 import { Step } from '../models/types';
-
+import { Injectable } from '@angular/core';
+@Injectable()
 export class BubbleSorting{
     public steps: Step[];
     public stepsCounter: number;
@@ -17,6 +18,8 @@ export class BubbleSorting{
         // Definitions
         let i: number, j:number, temp: number;
         let swapped: boolean;
+        this.steps = [];
+        this.stepsCounter = 0;
 
         // Outer loop
         for (i = 0; i < arr.length - 1; i++) {
@@ -29,7 +32,6 @@ export class BubbleSorting{
                     arr[j+1] = temp;
                     swapped = true;
                     this.stepsCounter++;
-                    //console.log(stepsCounter, arr);
                     // Keep track of each step
                     this.steps.push({
                         "key": this.stepsCounter,
@@ -37,7 +39,6 @@ export class BubbleSorting{
                         "pointer": j,
                         "comparedElement": j+1 
                     });
-                    //console.log(steps[stepsCounter-1]);
                 } else { // Record step even if no swap has been made
                     this.stepsCounter++;
                     this.steps.push({
@@ -46,7 +47,6 @@ export class BubbleSorting{
                         "pointer": j,
                         "comparedElement": j+1 
                     })
-                    //console.log(steps[stepsCounter-1]);
                 }
             }
             // Break if no elements were swapped
