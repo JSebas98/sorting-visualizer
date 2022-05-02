@@ -8,6 +8,15 @@ export type Step = {
     "comparedElement": number
 };
 
+export type QuickStep = {
+    "key": number,
+    "status": number[],
+    "pivot": number,
+    "comparedElement": number,
+    "swapIndex": number,
+    "swapped": boolean
+};
+
 export type MergeStep = {
     "key": number,
     "leftArray": number[],
@@ -15,4 +24,4 @@ export type MergeStep = {
     "sortedArray": number[],
     "pointer": number,
     "comparedElement": number
-}
+};
