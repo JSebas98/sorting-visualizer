@@ -1,0 +1,1 @@
+export type ArraySize = 'small' | 'medium' | 'big';
