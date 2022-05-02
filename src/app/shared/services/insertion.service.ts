@@ -2,23 +2,18 @@
  * Class to execute insertion sorting algorithm.
  */
 
-import { RawArray } from '../models/arrays.model';
 import { Step } from '../models/types';
 
 export class InsertionSorting{
-    public arraySize: 'small' | 'medium' | 'big';
-    public rawArray: number[];
     public steps: Step[];
     public stepsCounter: number;
 
-    constructor(arraySize: 'small' | 'medium' | 'big') {
-        this.arraySize = arraySize;
-        this.rawArray = new RawArray(arraySize).generateArray(arraySize);
+    constructor() {
         this.steps = [];
         this.stepsCounter = 0;
     }
 
-    insertionSortArray(arr: number[] = this.rawArray): number[] {
+    insertionSortArray(arr: number[]): number[] {
         let i:number, key:number, prev:number;
 
         for (i=1; i<arr.length; i++) {
