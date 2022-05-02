@@ -7,3 +7,12 @@ export type Step = {
     "pointer": number,
     "comparedElement": number
 };
+
+export type MergeStep = {
+    "key": number,
+    "leftArray": number[],
+    "rightArray": number[],
+    "sortedArray": number[],
+    "pointer": number,
+    "comparedElement": number
+}
