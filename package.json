@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev": "ts-node ./src/app/shared/services/quick.service.ts"
   },
   "private": true,
   "dependencies": {
