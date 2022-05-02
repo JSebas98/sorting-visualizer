@@ -11,12 +11,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
+import { ChartComponent } from './views/chart/chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LayoutComponent
+    LayoutComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
