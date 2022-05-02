@@ -15,14 +15,6 @@
       "request": "launch",
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html"
-    },
-    {
-      "name": "ts-node debugger",
-      "type": "node",
-      "request": "launch",
-      "runtimeArgs": ["ts-node"],
-      "runtimeExecutable": "npx",
-      "program": "./src/app/services/insertion.service.ts"
     }
   ]
 }
