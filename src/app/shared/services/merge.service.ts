@@ -2,7 +2,6 @@
  * Class to execute merge sorting algorithm.
  */
 
-import { RawArray } from '../models/arrays.model';
 import { MergeStep } from '../models/types';
 
 export class MergeSorting{
