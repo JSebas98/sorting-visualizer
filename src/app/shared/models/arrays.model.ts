@@ -11,7 +11,6 @@ export class RawArray {
         this.values = this.generateArray(size);
     }
 
-    
     /**
      * Generates an array of the given size.
      * @param arraySize number; the size of the array.
