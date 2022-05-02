@@ -2,23 +2,18 @@
  * Class to execute bubble sorting algorithm.
  */
 
-import { RawArray } from '../models/arrays.model';
 import { Step } from '../models/types';
 
 export class BubbleSorting{
-    public arraySize: 'small' | 'medium' | 'big';
-    public rawArray: number[];
     public steps: Step[];
     public stepsCounter: number;
 
-    constructor(arraySize: 'small' | 'medium' | 'big') {
-        this.arraySize = arraySize;
-        this.rawArray = new RawArray(arraySize).generateArray(arraySize);
+    constructor() {
         this.steps = [];
         this.stepsCounter = 0;
     }
 
-    bubbleSortArray(arr: number[] = this.rawArray): number[] {
+    bubbleSortArray(arr: number[]): number[] {
         // Definitions
         let i: number, j:number, temp: number;
         let swapped: boolean;

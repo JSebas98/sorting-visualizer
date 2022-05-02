@@ -1,24 +1,21 @@
+import { ArraySize } from './types';
 /**
  * Model for generating arrays.
  */
 
  export class RawArray {
-    size: 'small' | 'medium' | 'big';
-    values: number[];
+    size: ArraySize;
 
-    constructor(size: 'small' | 'medium' | 'big') {
+    constructor(size: ArraySize) {
         this.size = size;
-        this.values = this.generateArray(size);
     }
-
-    
 
     /**
      * Generates an array of the given size.
      * @param arraySize number; the size of the array.
      * @returns an array with numbers 1 to given size.
      */
-    generateArray(arraySize: 'small' | 'medium' | 'big'): number[] {
+    generateArray(arraySize: ArraySize = this.size): number[] {
         let myArray: number[] = [];
         let sizeNumerical: number = 0;
         
