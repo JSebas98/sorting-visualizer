@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { MergeStep, QuickStep, Step } from 'src/app/shared/models/types';
+import { QuickStep, Step } from 'src/app/shared/models/types';
 
 @Component({
   selector: 'app-chart',
@@ -8,7 +8,7 @@ import { MergeStep, QuickStep, Step } from 'src/app/shared/models/types';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit, OnChanges {
-  @Input() steps: Step[] | MergeStep[] | QuickStep[] = [];
+  @Input() steps: Step[] | QuickStep[] = [];
   @Input() initialStep: number[] = [];
   options: EChartsOption = {};
   updateOptions: EChartsOption={};
@@ -129,7 +129,7 @@ export class ChartComponent implements OnInit, OnChanges {
     };
   }
 
-  getData(step: Step|QuickStep): (string|number)[][] {
+  getData(step: Step | QuickStep): (string|number)[][] {
     let pointer:(string|number)[] = step.status.reduce((acc:(string|number)[], curr, index) => {
       index === step.index ? acc.push(curr) : acc.push('-');
       return acc;

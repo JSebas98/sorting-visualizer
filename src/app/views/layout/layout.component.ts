@@ -5,7 +5,7 @@ import { InsertionSorting } from '../../shared/services/insertion.service';
 import { MergeSorting } from '../../shared/services/merge.service';
 import { QuickSorting } from '../../shared/services/quick.service';
 import { RawArray } from '../../shared/models/arrays.model';
-import { MergeStep, QuickStep, Step } from '../../shared/models/types';
+import { QuickStep, Step } from '../../shared/models/types';
 
 @Component({
   selector: 'app-layout',
@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit {
   selectedAlgorithm: string;
 
   initialArray: number[]; 
-  steps: Step[] | MergeStep[] | QuickStep[];
+  steps: Step[] | QuickStep[];
   currentService: any;
 
   constructor(
@@ -97,13 +97,19 @@ export class LayoutComponent implements OnInit {
     if(this.selectedAlgorithm === 'InsertionSort') {
       this.insertionService.insertionSortArray(this.initialArray.slice());
       this.steps = this.insertionService.steps;
-    } 
+    }
+    if (this.selectedAlgorithm === 'MergeSort') {
+      this.mergeService.steps = [];
+      this.mergeService.stepsCounter = 0;
+      this.mergeService.mergeSortArray(this.initialArray.slice());
+      this.steps = this.mergeService.steps;
+      console.log(this.steps);
+    }
     if(this.selectedAlgorithm === 'QuickSort') {
       this.quickService.steps = [];
       this.quickService.stepsCounter = 0;
       this.quickService.quickSortArray(this.initialArray.slice());
       this.steps = this.quickService.steps;
     } 
-      
   }
 }

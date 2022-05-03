@@ -6,7 +6,7 @@ export type Step = {
     "status": number[],
     "pointer": number,
     "comparedElement": number,
-    "index": number,
+    "index": number
 };
 
 export type QuickStep = {
@@ -15,14 +15,4 @@ export type QuickStep = {
     "pointer": number,
     "comparedElement": number,
     "index": number
-};
-
-export type MergeStep = {
-    "key": number,
-    "leftArray": number[],
-    "rightArray": number[],
-    "status": number[],
-    "pointer": number,
-    "comparedElement": number,
-    "index": number,
 };
