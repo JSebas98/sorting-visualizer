@@ -1,16 +1,23 @@
 <div class="container">
-  <app-header (selectedOption)="onSelected($event)"></app-header>
+  <app-header (selectedOption)="onSelected($event)" [stop]="disable"></app-header>
   <div class="layout">
     <p class="layout__title">{{selectedAlgorithm}}</p>
     <div class="layout__container">
-      <button mat-icon-button class="layout__button" (click)="animation()" matTooltip="Start animation">
+      <button mat-icon-button class="layout__button" (click)="animation()" matTooltip="Start animation"
+        [disabled]="disable">
         <mat-icon class="layout__button-icon">play_arrow</mat-icon>
       </button>
-      <button mat-icon-button class="layout__button" (click)="shuffleArray()" matTooltip="Shuffle array">
+      <button mat-icon-button class="layout__button" (click)="shuffleArray()" matTooltip="Shuffle array"
+        [disabled]="disable">
         <mat-icon class="layout__button-icon">shuffle</mat-icon>
       </button>
     </div>
+    <mat-form-field class="layout__form" appearance="fill">
+      <mat-label>Delay (s)</mat-label>
+      <input matInput type="number" [(ngModel)]="value" [disabled]="disable">
+    </mat-form-field>
     <mat-slider thumbLabel [displayWith]="formatValue" step="50" tickInterval="1" class="layout__slider"
-      (input)="getSliderValue($event)"></mat-slider>
+      (input)="getSliderValue($event)" [disabled]="disable"></mat-slider>
   </div>
+  <app-chart [steps]="steps" [initialStep]="initialArray" [delay]="value" (stop)="onStoped($event)"></app-chart>
 </div>

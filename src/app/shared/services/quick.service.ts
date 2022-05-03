@@ -2,8 +2,9 @@
  * Class to execute quick sorting algorithm.
  */
 
+import { Injectable } from '@angular/core';
 import { QuickStep } from '../models/types';
-
+@Injectable()
 export class QuickSorting {
     public steps: QuickStep[];
     public stepsCounter: number;
@@ -50,27 +51,24 @@ export class QuickSorting {
                 swapIndex++; // Increment swapIndex
                 // Keep track of steps
                 this.stepsCounter++;
+                // Swap current element and element at swapIndex
+                [arr[i], arr[swapIndex]] = [arr[swapIndex], arr[i]];
                 this.steps.push({
                     "key": this.stepsCounter,
                     "status": arr.slice(),
-                    "pivot": end,
+                    "index": end,
                     "comparedElement": i,
-                    "swapIndex": swapIndex,
-                    "swapped": true
+                    "pointer": swapIndex
                 });
-                // Swap current element and element at swapIndex
-                [arr[i], arr[swapIndex]] = [arr[swapIndex], arr[i]];
-                
             } else {
                 // Keep track of steps
                 this.stepsCounter++;
                 this.steps.push({
                     "key": this.stepsCounter,
                     "status": arr.slice(),
-                    "pivot": end,
+                    "index": end,
                     "comparedElement": i,
-                    "swapIndex": swapIndex,
-                    "swapped": false
+                    "pointer": swapIndex
                 });
             }
         }
@@ -81,12 +79,10 @@ export class QuickSorting {
         this.steps.push({
             "key": this.stepsCounter,
             "status": arr.slice(),
-            "pivot": end,
-            "comparedElement": swapIndex+1,
-            "swapIndex": swapIndex,
-            "swapped": true
+            "index":  end,
+            "comparedElement": end,
+            "pointer": swapIndex
         });
-
         // Pivot new index.
         return swapIndex+1;
     }

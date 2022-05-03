@@ -2,10 +2,12 @@
  * Class to execute merge sorting algorithm.
  */
 
-import { MergeStep } from '../models/types';
-
+import { Injectable } from '@angular/core';
+import { Step } from '../models/types';
+@Injectable()
 export class MergeSorting{
-    public steps: MergeStep[];
+
+    public steps: Step[];
     public stepsCounter: number;
 
     constructor() {
@@ -15,128 +17,93 @@ export class MergeSorting{
 
     /**
      * Main function that triggers the algorithm.
-     * @param rawArray RawArray object containing shuffled array.
+     * @param arr RawArray object containing shuffled array.
      * @returns sorted array.
      */
     mergeSortArray(arr: number[]): number[] {
-        let sortedArray: number[] = this.divideArrays(arr);
-        
-        return sortedArray;
+        return this.recursiveMerge(arr, 0, arr.length-1);
     }
 
-    /**
-     * Function that divides arrays recursively and calls
-     * mergeArrays to sort the original array.
-     * @param arr shuffled array.
-     * @returns sorted array.
-     */
-    divideArrays(arr: number[]): number[]{
-        if (arr.length == 1){
-            return arr;
+    recursiveMerge(arr: number[], start: number, end: number){
+        if (start < end) {
+            let mid: number = Math.floor((start+end) / 2);
+            this.recursiveMerge(arr, start, mid);
+            this.recursiveMerge(arr, mid+1, end);
+            this.mergeArrays(arr, start, mid, end);
         }
-        let arr1: number[] = arr.slice(0, arr.length/2);
-        let arr2: number[] = arr.slice(arr.length/2, arr.length);
-        
-        this.steps.push({
-            "key": this.stepsCounter++,
-            "leftArray": arr1.slice(),
-            "rightArray": arr2.slice(),
-            "sortedArray": arr.slice(),
-            "pointer": -1,
-            "comparedElement": -1
-        });
 
-        arr1 = this.divideArrays(arr1);
-        arr2 = this.divideArrays(arr2);
-
-        return this.mergeArrays(arr1, arr2);
+        return arr;
     }
 
-    /**
-     * Function that takes care of merging divided arrays
-     * in an ordered way.
-     * @param arr1 left side of divided array.
-     * @param arr2 right side of divided array.
-     * @returns sorted array.
-     */
-    mergeArrays(arr1: number[], arr2: number[]): number[] {
-        let sortedArray: number[] = [];
-        
-        while (arr1.length > 0 && arr2.length > 0) {
-            if (arr1[0] > arr2[0]) {
-                sortedArray.push(arr2[0]);
-                
-                // Keep track of step.
-                this.stepsCounter++;
+    mergeArrays(arr: number[], start: number, mid: number, end: number) {
+        let temp: number[] = [];
+        let start1: number = start, start2: number = mid +1;
+        let end1: number = mid, end2: number = end;
+        let index: number = start;
+
+        while (start1 <= end1 && start2 <= end2) {
+            if (arr[start1] <= arr[start2]) {
+                temp[index] = arr[start1];
                 this.steps.push({
-                    "key": this.stepsCounter,
-                    "leftArray": arr1.slice(),
-                    "rightArray": arr2.slice(),
-                    "sortedArray": sortedArray.slice(),
-                    "pointer": 0,
-                    "comparedElement": 0
+                    "key": this.stepsCounter++,
+                    "status": arr.slice(),
+                    "pointer": start1,
+                    "comparedElement": start2,
+                    "index": -1
                 });
-
-                arr2.splice(0, 1);
-
-            } else {
-                sortedArray.push(arr1[0]);
-
-                // Keep track of step.
-                this.stepsCounter++;
+                index++;
+                start1++;
+            } else if (arr[start1] > arr[start2]) {
+                temp[index] = arr[start2];
                 this.steps.push({
-                    "key": this.stepsCounter,
-                    "leftArray": arr1.slice(),
-                    "rightArray": arr2.slice(),
-                    "sortedArray": sortedArray.slice(),
-                    "pointer": 0,
-                    "comparedElement": 0
+                    "key": this.stepsCounter++,
+                    "status": arr.slice(),
+                    "pointer": start1,
+                    "comparedElement": start2,
+                    "index": -1
                 });
-
-                arr1.splice(0, 1);
+                index++;
+                start2++;
             }
         }
 
-        // At this point, either arr1 or arr2 is empty
-
-        while (arr1.length > 0){
-            sortedArray.push(arr1[0]);
-
-            // Keep track of step.
-            // "comparedElement": -1 because there is no comparison
-            // just removal from arr1 and addition to sortedArray
-            this.stepsCounter++;
+        while (start1 <= end1) {
+            temp[index] = arr[start1];
             this.steps.push({
-                "key": this.stepsCounter,
-                "leftArray": arr1.slice(),
-                "rightArray": arr2.slice(),
-                "sortedArray": sortedArray.slice(),
-                "pointer": 0,
-                "comparedElement": -1
+                "key": this.stepsCounter++,
+                "status": arr.slice(),
+                "pointer": start1,
+                "comparedElement": start1,
+                "index": -1
             });
-
-            arr1.splice(0, 1);
+            index++;
+            start1++;
         }
 
-        while (arr2.length > 0){
-            sortedArray.push(arr2[0]);
-
-            // Keep track of step.
-            // "comparedElement": -1 because there is no comparison
-            // just removal from arr2 and addition to sortedArray
-            this.stepsCounter++;
+        while (start2 <= end2) {
+            temp[index] = arr[start2];
             this.steps.push({
-                "key": this.stepsCounter,
-                "leftArray": arr1.slice(),
-                "rightArray": arr2.slice(),
-                "sortedArray": sortedArray.slice(),
-                "pointer": 0,
-                "comparedElement": -1
+                "key": this.stepsCounter++,
+                "status": arr.slice(),
+                "pointer": start2,
+                "comparedElement": start2,
+                "index": -1
             });
-
-            arr2.splice(0, 1);
+            index++;
+            start2++;
         }
-        
-        return sortedArray;
+
+        index = start;
+        while (index <= end) {
+            arr[index] = temp[index];
+            this.steps.push({
+                "key": this.stepsCounter++,
+                "status": arr.slice(),
+                "pointer": index,
+                "comparedElement": index,
+                "index": -1
+            });
+            index++
+        }
     }
 }

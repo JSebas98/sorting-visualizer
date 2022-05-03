@@ -2,8 +2,9 @@
  * Class to execute insertion sorting algorithm.
  */
 
+import { Injectable } from '@angular/core';
 import { Step } from '../models/types';
-
+@Injectable()
 export class InsertionSorting{
     public steps: Step[];
     public stepsCounter: number;
@@ -15,6 +16,8 @@ export class InsertionSorting{
 
     insertionSortArray(arr: number[]): number[] {
         let i:number, key:number, prev:number;
+        this.steps = [];
+        this.stepsCounter = 0;
 
         for (i=1; i<arr.length; i++) {
             key = arr[i];
@@ -29,7 +32,8 @@ export class InsertionSorting{
                     "key": this.stepsCounter,
                     "status": arr.slice(),
                     "pointer": i,
-                    "comparedElement": prev
+                    "comparedElement": prev,
+                    "index": -1
                 });
             }
             // Insertion of element
@@ -41,7 +45,8 @@ export class InsertionSorting{
                 "key": this.stepsCounter,
                 "status": arr.slice(),
                 "pointer": i,
-                "comparedElement": prev
+                "comparedElement": prev,
+                "index": -1
             })
         }
 

@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbar">
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="toolbar__btn">
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="toolbar__btn" [disabled]="stop">
     <mat-icon class="toolbar__btn-icon">menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" class="toolbar__menu">

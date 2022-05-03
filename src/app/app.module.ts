@@ -12,6 +12,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { ChartComponent } from './views/chart/chart.component';
+import { BubbleSorting } from './shared/services/bubble.service';
+import { MergeSorting } from './shared/services/merge.service';
+import { InsertionSorting } from './shared/services/insertion.service';
+import { QuickSorting } from './shared/services/quick.service';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,9 +36,16 @@ import { ChartComponent } from './views/chart/chart.component';
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
-    MatSliderModule
+    MatSliderModule,
+    MatInputModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    BubbleSorting,
+    InsertionSorting,
+    MergeSorting,
+    QuickSorting
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

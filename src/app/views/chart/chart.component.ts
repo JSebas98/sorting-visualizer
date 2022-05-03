@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { Step } from 'src/app/shared/models/types';
+import { QuickStep, Step } from 'src/app/shared/models/types';
 
 @Component({
   selector: 'app-chart',
@@ -8,7 +8,11 @@ import { Step } from 'src/app/shared/models/types';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit, OnChanges {
-  @Input() steps: Step[] = [];
+  @Input() steps: Step[] | QuickStep[] = [];
+  @Input() initialStep: number[] = [];
+  @Input() delay: number = 1;
+  @Output() stop: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
   options: EChartsOption = {};
   updateOptions: EChartsOption={};
 
@@ -16,30 +20,48 @@ export class ChartComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.options = this.setOptions();
-    this.startAnimation();
-    this.getData(this.steps[0]);
   }
 
   ngOnChanges():void {
     this.options = this.setOptions();
-    this.startAnimation();
   }
 
   startAnimation():void {
     let index: number = 0;
     let timer = setInterval(() => {
-      this.updateOptions = {
-        series: [
-          {
-            data: this.getData(this.steps[index])[1]
-          },
-          {
-            data: this.getData(this.steps[index])[0],
-          }
-        ]
-      };
+      if(index === this.steps.length-1) {
+        this.stop.emit(false);
+        this.updateOptions = {
+          series: [
+            {
+              data: []
+            },
+            {
+              data: this.steps[index].status
+            },
+            {
+              data: []
+            }
+          ]
+        };
+      } else {
+        this.stop.emit(true);
+        this.updateOptions = {
+          series: [
+            {
+              data: this.getData(this.steps[index])[1]
+            },
+            {
+              data: this.getData(this.steps[index])[0],
+            },
+            {
+              data: this.getData(this.steps[index])[2]
+            }
+          ]
+        };
+      }      
       index < (this.steps.length-1) ? index++ : clearInterval(timer);
-    }, 500); 
+    }, this.delay*1000);
   }
 
   setOptions(): EChartsOption{
@@ -70,42 +92,62 @@ export class ChartComponent implements OnInit, OnChanges {
           name: 'fixed',
           type: 'bar',
           stack: '1',
-          data: this.getData(this.steps[0])[1],
+          data: this.initialStep,
           label: {
             show: true,
             position: 'top'
           },
           itemStyle:{
             color: '#13928C'
-          }
+          },
+          animation: false
         },
         {
           name: 'swaped',
           type: 'bar',
           stack: '1',
-          data: this.getData(this.steps[0])[0],
+          data: [],
           label: {
             show: true,
             position: 'top'
           },
           itemStyle:{
             color: '#0D2C53'
-          }
+          },
+          animation: false
+        },
+        {
+          name: 'pointer',
+          type: 'bar',
+          stack: '1',
+          data: [],
+          label: {
+            show: true,
+            position: 'top'
+          },
+          itemStyle:{
+            color: '#e6e6e6'
+          },
+          animation: false
         }
       ]
     };
   }
 
-  getData(step: Step): (string|number)[][] {
+  getData(step: Step | QuickStep): (string|number)[][] {
+    let pointer:(string|number)[] = step.status.reduce((acc:(string|number)[], curr, index) => {
+      index === step.index ? acc.push(curr) : acc.push('-');
+      return acc;
+    }, []); 
     let swaped:(string|number)[] = step.status.reduce((acc:(string|number)[], curr, index) => {
-      index === step.pointer || index === step.comparedElement ? acc.push(curr) : acc.push('-');
+      (index === step.pointer || index === step.comparedElement)  ? acc.push(curr) : acc.push('-');
       return acc;
     }, []);
     let fixed:(string|number)[] = step.status.reduce((acc:(string|number)[], curr, index) => {
       index !== step.pointer && index !== step.comparedElement ? acc.push(curr) : acc.push('-');
       return acc;
     }, []);
-    return [swaped, fixed];
+    return [swaped, fixed, pointer];
   }
 
 }
