@@ -1,0 +1,13 @@
+<mat-toolbar class="toolbar">
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="toolbar__btn" [disabled]="stop">
+    <mat-icon class="toolbar__btn-icon">menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" class="toolbar__menu">
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(1)">BubbleSort</button>
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(2)">InsertionSort</button>
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(3)">MergeSort</button>
+    <button mat-menu-item class="toolbar__menu-item" (click)="selectOption(4)">QuickSort</button>
+  </mat-menu>
+  <span class="toolbar__spacer"></span>
+  <img src="../../../assets/logo.png" class="toolbar__img">
+</mat-toolbar>
