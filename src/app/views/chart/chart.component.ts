@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { Step } from 'src/app/shared/models/types';
+import { MergeStep, QuickStep, Step } from 'src/app/shared/models/types';
 
 @Component({
   selector: 'app-chart',
@@ -8,7 +8,7 @@ import { Step } from 'src/app/shared/models/types';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit, OnChanges {
-  @Input() steps: Step[] = [];
+  @Input() steps: Step[] | MergeStep[] | QuickStep[] = [];
   @Input() initialStep: number[] = [];
   options: EChartsOption = {};
   updateOptions: EChartsOption={};
@@ -34,6 +34,9 @@ export class ChartComponent implements OnInit, OnChanges {
             },
             {
               data: this.steps[index].status
+            },
+            {
+              data: []
             }
           ]
         };
@@ -45,6 +48,9 @@ export class ChartComponent implements OnInit, OnChanges {
             },
             {
               data: this.getData(this.steps[index])[0],
+            },
+            {
+              data: this.getData(this.steps[index])[2]
             }
           ]
         };
@@ -104,21 +110,39 @@ export class ChartComponent implements OnInit, OnChanges {
             color: '#0D2C53'
           },
           animation: false
+        },
+        {
+          name: 'pointer',
+          type: 'bar',
+          stack: '1',
+          data: [],
+          label: {
+            show: true,
+            position: 'top'
+          },
+          itemStyle:{
+            color: '#e6e6e6'
+          },
+          animation: false
         }
       ]
     };
   }
 
-  getData(step: Step): (string|number)[][] {
+  getData(step: Step|QuickStep): (string|number)[][] {
+    let pointer:(string|number)[] = step.status.reduce((acc:(string|number)[], curr, index) => {
+      index === step.index ? acc.push(curr) : acc.push('-');
+      return acc;
+    }, []); 
     let swaped:(string|number)[] = step.status.reduce((acc:(string|number)[], curr, index) => {
-      index === step.pointer || index === step.comparedElement ? acc.push(curr) : acc.push('-');
+      (index === step.pointer || index === step.comparedElement)  ? acc.push(curr) : acc.push('-');
       return acc;
     }, []);
     let fixed:(string|number)[] = step.status.reduce((acc:(string|number)[], curr, index) => {
       index !== step.pointer && index !== step.comparedElement ? acc.push(curr) : acc.push('-');
       return acc;
     }, []);
-    return [swaped, fixed];
+    return [swaped, fixed, pointer];
   }
 
 }

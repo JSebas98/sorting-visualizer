@@ -42,9 +42,10 @@ export class MergeSorting{
             "key": this.stepsCounter++,
             "leftArray": arr1.slice(),
             "rightArray": arr2.slice(),
-            "sortedArray": arr.slice(),
+            "status": arr.slice(),
             "pointer": -1,
-            "comparedElement": -1
+            "comparedElement": -1,
+            "index": -1
         });
 
         arr1 = this.divideArrays(arr1);
@@ -73,9 +74,10 @@ export class MergeSorting{
                     "key": this.stepsCounter,
                     "leftArray": arr1.slice(),
                     "rightArray": arr2.slice(),
-                    "sortedArray": sortedArray.slice(),
+                    "status": sortedArray.slice(),
                     "pointer": 0,
-                    "comparedElement": 0
+                    "comparedElement": 0,
+                    "index": -1
                 });
 
                 arr2.splice(0, 1);
@@ -89,9 +91,10 @@ export class MergeSorting{
                     "key": this.stepsCounter,
                     "leftArray": arr1.slice(),
                     "rightArray": arr2.slice(),
-                    "sortedArray": sortedArray.slice(),
+                    "status": sortedArray.slice(),
                     "pointer": 0,
-                    "comparedElement": 0
+                    "comparedElement": 0,
+                    "index": -1
                 });
 
                 arr1.splice(0, 1);
@@ -111,9 +114,10 @@ export class MergeSorting{
                 "key": this.stepsCounter,
                 "leftArray": arr1.slice(),
                 "rightArray": arr2.slice(),
-                "sortedArray": sortedArray.slice(),
+                "status": sortedArray.slice(),
                 "pointer": 0,
-                "comparedElement": -1
+                "comparedElement": -1,
+                "index": -1
             });
 
             arr1.splice(0, 1);
@@ -130,9 +134,10 @@ export class MergeSorting{
                 "key": this.stepsCounter,
                 "leftArray": arr1.slice(),
                 "rightArray": arr2.slice(),
-                "sortedArray": sortedArray.slice(),
+                "status": sortedArray.slice(),
                 "pointer": 0,
-                "comparedElement": -1
+                "comparedElement": -1,
+                "index": -1
             });
 
             arr2.splice(0, 1);

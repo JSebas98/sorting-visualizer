@@ -32,7 +32,8 @@ export class InsertionSorting{
                     "key": this.stepsCounter,
                     "status": arr.slice(),
                     "pointer": i,
-                    "comparedElement": prev
+                    "comparedElement": prev,
+                    "index": -1
                 });
             }
             // Insertion of element
@@ -44,7 +45,8 @@ export class InsertionSorting{
                 "key": this.stepsCounter,
                 "status": arr.slice(),
                 "pointer": i,
-                "comparedElement": prev
+                "comparedElement": prev,
+                "index": -1
             })
         }
 

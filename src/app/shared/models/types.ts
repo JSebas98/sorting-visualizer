@@ -5,23 +5,24 @@ export type Step = {
     "key": number,
     "status": number[],
     "pointer": number,
-    "comparedElement": number
+    "comparedElement": number,
+    "index": number,
 };
 
 export type QuickStep = {
     "key": number,
     "status": number[],
-    "pivot": number,
+    "pointer": number,
     "comparedElement": number,
-    "swapIndex": number,
-    "swapped": boolean
+    "index": number
 };
 
 export type MergeStep = {
     "key": number,
     "leftArray": number[],
     "rightArray": number[],
-    "sortedArray": number[],
+    "status": number[],
     "pointer": number,
-    "comparedElement": number
+    "comparedElement": number,
+    "index": number,
 };

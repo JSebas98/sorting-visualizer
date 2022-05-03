@@ -37,7 +37,8 @@ export class BubbleSorting{
                         "key": this.stepsCounter,
                         "status":arr.slice(),
                         "pointer": j,
-                        "comparedElement": j+1 
+                        "comparedElement": j+1,
+                        "index": -1 
                     });
                 } else { // Record step even if no swap has been made
                     this.stepsCounter++;
@@ -45,7 +46,8 @@ export class BubbleSorting{
                         "key": this.stepsCounter,
                         "status":arr.slice(),
                         "pointer": j,
-                        "comparedElement": j+1 
+                        "comparedElement": j+1,
+                        "index": -1 
                     })
                 }
             }
