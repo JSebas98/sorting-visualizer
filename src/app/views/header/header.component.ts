@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,13 +6,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Output() selectedOption = new EventEmitter<number>();
+  @Input() stop: boolean = false;
+  @Output() selectedOption: EventEmitter<number> = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  selectOption(option: number) {
+  selectOption(option: number): void {
     switch(option) { 
       case 1: {
         this.selectedOption.emit(option);

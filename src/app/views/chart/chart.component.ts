@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { QuickStep, Step } from 'src/app/shared/models/types';
 
@@ -10,6 +10,9 @@ import { QuickStep, Step } from 'src/app/shared/models/types';
 export class ChartComponent implements OnInit, OnChanges {
   @Input() steps: Step[] | QuickStep[] = [];
   @Input() initialStep: number[] = [];
+  @Input() delay: number = 1;
+  @Output() stop: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
   options: EChartsOption = {};
   updateOptions: EChartsOption={};
 
@@ -27,6 +30,7 @@ export class ChartComponent implements OnInit, OnChanges {
     let index: number = 0;
     let timer = setInterval(() => {
       if(index === this.steps.length-1) {
+        this.stop.emit(false);
         this.updateOptions = {
           series: [
             {
@@ -41,6 +45,7 @@ export class ChartComponent implements OnInit, OnChanges {
           ]
         };
       } else {
+        this.stop.emit(true);
         this.updateOptions = {
           series: [
             {
@@ -56,7 +61,7 @@ export class ChartComponent implements OnInit, OnChanges {
         };
       }      
       index < (this.steps.length-1) ? index++ : clearInterval(timer);
-    }, 500); 
+    }, this.delay*1000);
   }
 
   setOptions(): EChartsOption{

@@ -19,10 +19,10 @@ export class LayoutComponent implements OnInit {
 
   private sliderValue: ('small'|'medium'|'big');
   selectedAlgorithm: string;
-
   initialArray: number[]; 
   steps: Step[] | QuickStep[];
-  currentService: any;
+  disable: boolean;
+  value:number;
 
   constructor(
     private bubbleService: BubbleSorting,
@@ -30,6 +30,8 @@ export class LayoutComponent implements OnInit {
     private mergeService: MergeSorting,
     private quickService: QuickSorting
   ) {
+    this.disable = false;
+    this.value = 0.5;
     this.sliderValue = 'small';
     this.selectedAlgorithm = 'BubbleSort';
     this.initialArray = new RawArray(this.sliderValue).generateArray();
@@ -69,27 +71,31 @@ export class LayoutComponent implements OnInit {
     }
   }
 
+  onStoped(stop: boolean): void {
+    this.disable = stop;
+  }
+
   getSliderValue(event: any): string {
     this.sliderValue = event.value === 0 ? 'small' : event.value === 50 ? 'medium' : 'big';
     this.initialArray = new RawArray(this.sliderValue).generateArray();
     return this.sliderValue;
   }
 
-  animation() {
+  animation(): void {
     this.calculateSteps();
     this.chart.startAnimation();
   }
 
-  shuffleArray() {
+  shuffleArray():void {
     this.initialArray = new RawArray(this.sliderValue).generateArray();
   }
 
-  formatValue(value: number) {
+  formatValue(value: number): number {
     value === 0 ? value=10 : value = value;
     return value;
   }
 
-  calculateSteps() {
+  calculateSteps(): void {
     if(this.selectedAlgorithm === 'BubbleSort'){
       this.bubbleService.bubbleSortArray(this.initialArray.slice());
       this.steps = this.bubbleService.steps;
@@ -103,7 +109,6 @@ export class LayoutComponent implements OnInit {
       this.mergeService.stepsCounter = 0;
       this.mergeService.mergeSortArray(this.initialArray.slice());
       this.steps = this.mergeService.steps;
-      console.log(this.steps);
     }
     if(this.selectedAlgorithm === 'QuickSort') {
       this.quickService.steps = [];
